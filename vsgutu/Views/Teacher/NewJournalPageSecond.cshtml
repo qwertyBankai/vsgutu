@@ -1,0 +1,156 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+
+    ViewData["Title"] = "Дисциплины";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+@if ((bool)TempData["fieldIsEmpty"] == true)
+{
+    <h2 class="title title__main">Заполните все поля</h2>
+}
+
+<h2 class="title title__main">Создание занятий</h2>
+<form  asp-action="NewJournalPageSecond" asp-controller="Teacher" method="post">
+    <input type="hidden" name="NameDiscipline" value="@Model.NameDiscipline" />
+    <input type="hidden" name="LectionCountHoursInt" value="@Model.LectionCountHours" />
+    <input type="hidden" name="PracticsCountHoursInt" value="@Model.PracticsCountHours" />
+    <input type="hidden" name="LabCountHoursInt" value="@Model.LabCountHours" />
+    <input type="hidden" name="GroupsName" value="@Model.GroupsName" />
+    <input type="hidden" name="countSessionInt" value="@Model.CountSession" />
+    <input type="hidden" name="allCountHoursInt" value="@Model.allCountHours" />
+    <div class="block-center">
+
+        @if (Model.CountSession > 0)
+        {
+            <div class="table">
+                <table class="table__content">
+                    <thead class="table__content__thead">
+                        <tr class="table__content__row">
+                            <td class="table__content__td">#</td>
+                            <td class="table__content__td">Дата сессии</td>
+                        </tr>
+                    </thead>
+                    <tbody class="table__content__tbody">
+                        @{
+                            int countSession = Model.CountSession;
+                        }
+
+                        @for (int i = 1; i <= countSession; i++)
+                        {
+                            <tr class="table__content__row">
+                                <td class="table__content__td">@i</td>
+                                <td class="table__content__td"><input name="SessionDate_@i" class="input-for-create-lesson" type="date"></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        }
+
+        @if (@Model.LectionCountHours > 0)
+        {
+            <div class="table">
+                <table class="table__content">
+                    <thead class="table__content__thead">
+                        <tr class="table__content__row">
+                            <td class="table__content__td">#</td>
+                            <td class="table__content__td">Дата проведения лекции</td>
+                            <td class="table__content__td">Название лекции</td>
+                        </tr>
+                    </thead>
+                    <tbody class="table__content__tbody">
+                        @{
+                            int countLection = Model.LectionCountHours;
+                        }
+
+                        @for (int i = 1; i <= countLection; i++)
+                        {
+                            <tr class="table__content__row">
+                                <td class="table__content__td">@i</td>
+                                <td class="table__content__td"><input name="lectionDate_@i" class="input-for-create-lesson" type="date"></td>
+                                <td class="table__content__td"><input name="lectionName_@i" class="input-for-create-lesson" type="text"></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+        }
+
+        @if (@Model.PracticsCountHours > 0)
+        {
+            <div class="table">
+                <table class="table__content">
+                    <thead class="table__content__thead">
+                        <tr class="table__content__row">
+                            <td class="table__content__td">#</td>
+                            <td class="table__content__td">Дата проведения практики</td>
+                            <td class="table__content__td">Название практики</td>
+                        </tr>
+                    </thead>
+                    <tbody class="table__content__tbody">
+                        @{
+                            int countPractics = Model.PracticsCountHours;
+                        }
+
+                        @for (int i = 1; i <= countPractics; i++)
+                        {
+                            <tr class="table__content__row">
+                                <td class="table__content__td">@i</td>
+                                <td class="table__content__td"><input name="practicsDate_@i" class="input-for-create-lesson" type="date"></td>
+                                <td class="table__content__td"><input name="practicsName_@i" class="input-for-create-lesson" type="text"></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+
+        @if (@Model.LabCountHours > 0)
+        {
+            <div class="table">
+                <table class="table__content">
+                    <thead class="table__content__thead">
+                        <tr class="table__content__row">
+                            <td class="table__content__td">#</td>
+                            <td class="table__content__td">Дата проведения Л.Р.</td>
+                            <td class="table__content__td">Название Л.Р.</td>
+                        </tr>
+                    </thead>
+                    <tbody class="table__content__tbody">
+                        @{
+                            int countLabs = Model.LabCountHours;
+                        }
+
+                        @for (int i = 1; i <= countLabs; i++)
+                        {
+                            <tr class="table__content__row">
+                                <td class="table__content__td">@i</td>
+                                <td class="table__content__td"><input name="LabDate_@i" class="input-for-create-lesson" type="date"></td>
+                                <td class="table__content__td"><input name="LabName_@i" class="input-for-create-lesson" type="text"></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        }
+        <button id="lr-btn" class="button-blue button-blue-for-lesson">Готово</button>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+

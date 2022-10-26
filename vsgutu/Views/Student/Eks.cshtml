@@ -1,0 +1,19 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+
+    ViewData["Title"] = "Студент";
+    TempData["UserName"] = Model.name.Users.Fio;
+
+}
+
+<h2 class="title title__main">Выберете сессию</h2>
+<div class="list-tabs">
+    <ul class="list-tabs__list">
+        @foreach (var item in Model.ListEK)
+        {
+            <li class="list-tabs__list__item"><a asp-controller="Student" asp-action="Ek" asp-route-idDiscipline="@item.Id" asp-route-dateTime="@item.Date" class="button-blue">ЕК за @item.Date.Month.@item.Date.Year</a></li>
+        }
+
+    </ul>
+</div>

@@ -1,0 +1,421 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+
+    ViewData["Title"] = "Студент";
+    TempData["UserName"] = Model.name.Users.Fio;
+
+}
+
+<h2 class="title title__main">ЖУРНАЛ ПО ДИСЦИПЛИНЕ: @Model.disciplineModel.Discipline.Name</h2>
+
+<div class="list-tabs">
+    <ul class="list-tabs__list">
+        @if (Model.lessonModelLection)
+        {
+            <li class="list-tabs__list__item"><p id="lection" class="button-blue">Лекции</p></li>
+        }
+        @if (Model.lessonModelPractics)
+        {
+            <li class="list-tabs__list__item"><p id="practics" class="button-blue">Практики</p></li>
+        }
+        @if (Model.lessonModelLabs)
+        {
+            <li class="list-tabs__list__item"><p id="labs" class="button-blue">Лабораторные</p></li>
+        }
+
+        @if (Model.lessonModelLection || Model.lessonModelPractics || Model.lessonModelLabs)
+        {
+            <li class="list-tabs__list__item"><p id="positionF" class="button-blue">Посещаемость</p></li>
+            
+        }
+        else
+        {
+            <h1 class="title title__main">В Данном журнале еще не добавлены занятия</h1>
+
+        }
+
+
+    </ul>
+</div>
+
+@if (Model.lessonModelLection)
+{
+    <div class="wrapper" id="tab-lection">
+        <h3 class="title title__main">Лекции</h3>
+        <div class="table">
+            <div class="for-scrol">
+                <table class="table__content table-scroll">
+                    <thead class="table__content__thead">
+                        <tr class="table__content__row">
+                            <td rowspan="3" class="table__content__td">#</td>
+                            <td rowspan="3" class="table__content__td">ФИО</td>
+                            <td colspan="10000" class="table__content__td">Лекции</td>
+                        </tr>
+                        <tr class="table__content__row">
+                            @{ int tempLection = 0;}
+                            @foreach (var item in Model.ListLection)
+                            {
+                                tempLection++;
+                                <td class="table__content__td"><p data-tooltip="@item.Lesson.NameLesson">Лек.@tempLection</p></td>
+                            }
+                        </tr>
+                        <tr class="table__content__row">
+                            @foreach (var item in Model.ListLection)
+                            {
+                                <td class="table__content__td date">@item.Lesson.Date.Day.@item.Lesson.Date.Month</td>
+                            }
+                        </tr>
+
+                    </thead>
+                    <tbody class="table__content__tbody">
+                        @{ int countRowsLection = 0;}
+                        @foreach (var i in Model.ListStudent)
+                        {
+                            countRowsLection++;
+                        <tr class="table__content__row">
+                            <td class="table__content__td">@countRowsLection</td>
+                            <td class="table__content__td">@i.Users.Fio</td>
+                            @foreach (var j in Model.ListLection)
+                            {
+                                @foreach (var si in j.Score)
+                                {
+                                    @foreach (var sj in j.Score)
+                                    {
+                                        @if (i.Users.Id == si.Score.IdStudent.Id && sj.Score.Id == si.Score.Id)
+                                        {
+                                            @if (@sj.Score.Evalution != null)
+                                            {
+                                                @if (@sj.Score.Evalution == "5")
+                                                {
+                                                    <td class="table__content__td" style="color:green;">@sj.Score.Evalution</td>
+                                                }
+                                                @if (@sj.Score.Evalution == "2")
+                                                {
+                                                    <td class="table__content__td" style="color:red;">@sj.Score.Evalution</td>
+                                                }
+                                                @if (@sj.Score.Evalution != "2" && @sj.Score.Evalution != "5")
+                                                {
+                                                     <td class="table__content__td">@sj.Score.Evalution</td>
+                                                }
+                                            }
+                                            @if (@sj.Score.Evalution == null)
+                                            {
+                                                <td class="table__content__td"> </td>
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            }
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+}
+
+@if (Model.lessonModelPractics)
+{
+    <div class="wrapper" id="tab-practics">
+        <h3 class="title title__main">Практики</h3>
+        <div class="table">
+            <div class="for-scrol">
+                <table class="table__content table-scroll">
+                    <thead class="table__content__thead">
+                        <tr class="table__content__row">
+                            <td rowspan="3" class="table__content__td">#</td>
+                            <td rowspan="3" class="table__content__td">ФИО</td>
+                            <td colspan="10000" class="table__content__td">Практика</td>
+                        </tr>
+                        <tr class="table__content__row">
+                            @{ int countNamePractics = 0; }
+                            @foreach (var item in Model.ListPractics)
+                            {
+                                countNamePractics++;
+                                <td class="table__content__td"><p data-tooltip="@item.Lesson.NameLesson">Практика @countNamePractics</p></td>
+                            }
+                        </tr>
+                        <tr class="table__content__row">
+                            @foreach (var item in Model.ListPractics)
+                            {
+                                <td class="table__content__td date">@item.Lesson.Date.Day.@item.Lesson.Date.Month</td>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody class="table__content__tbody">
+                        @{ int countRowsPractics = 0;}
+                        @foreach (var i in Model.ListStudent)
+                        {
+                            countRowsPractics++;
+                        <tr class="table__content__row">
+                            <td class="table__content__td">@countRowsPractics</td>
+                            <td class="table__content__td">@i.Users.Fio</td>
+                            @foreach (var j in Model.ListPractics)
+                            {
+                                @foreach (var si in j.Score)
+                                {
+                                    @foreach (var sj in j.Score)
+                                    {
+                                        @if (i.Users.Id == si.Score.IdStudent.Id && sj.Score.Id == si.Score.Id)
+                                        {
+                                            @if (@sj.Score.Evalution != null)
+                                            {
+                                                @if (@sj.Score.Evalution == "5")
+                                                {
+                                                    <td class="table__content__td" style="color:green;">@sj.Score.Evalution</td>
+                                                }
+                                                @if (@sj.Score.Evalution == "2")
+                                                {
+                                                    <td class="table__content__td" style="color:red;">@sj.Score.Evalution</td>
+                                                }
+                                                @if (@sj.Score.Evalution != "2" && @sj.Score.Evalution != "5")
+                                                {
+                                                    <td class="table__content__td">@sj.Score.Evalution</td>
+                                                }
+                                            }
+                                            @if (@sj.Score.Evalution == null)
+                                            {
+                                                <td class="table__content__td"> </td>
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            }
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+}
+@if (Model.lessonModelLabs)
+{
+    <div class="wrapper" id="tab-labs">
+        <h3 class="title title__main">Лабораторные</h3>
+        <div class="table">
+            <div class="for-scrol">
+                <table class="table__content table-scroll">
+                    <thead class="table__content__thead">
+                        <tr class="table__content__row">
+                            <td rowspan="3" class="table__content__td">#</td>
+                            <td rowspan="3" class="table__content__td">ФИО</td>
+                            <td colspan="10000" class="table__content__td">Лабораторные</td>
+                        </tr>
+                        <tr class="table__content__row">
+                            @{ int countNameLabs = 0; }
+                            @foreach (var item in Model.ListLabs)
+                            {
+                                countNameLabs++;
+                                <td class="table__content__td"><p data-tooltip="@item.Lesson.NameLesson">Л.р. @countNameLabs</p></td>
+                            }
+                        </tr>
+                        <tr class="table__content__row">
+                            @foreach (var item in Model.ListLabs)
+                            {
+                                <td class="table__content__td date">@item.Lesson.Date.Day.@item.Lesson.Date.Month</td>
+                            }
+                        </tr>
+
+                    </thead>
+                    <tbody class="table__content__tbody">
+                        @{ int countRowsLabs = 0;}
+                        @foreach (var i in Model.ListStudent)
+                        {
+                            countRowsLabs++;
+                        <tr class="table__content__row">
+                            <td class="table__content__td">@countRowsLabs</td>
+                            <td class="table__content__td">@i.Users.Fio</td>
+                            @foreach (var j in Model.ListLabs)
+                            {
+                                @foreach (var si in j.Score)
+                                {
+                                    @foreach (var sj in j.Score)
+                                    {
+                                        @if (i.Users.Id == si.Score.IdStudent.Id && sj.Score.Id == si.Score.Id)
+                                        {
+                                            @if (@sj.Score.Evalution != null)
+                                            {
+
+                                                @if (@sj.Score.Evalution == "5")
+                                                {
+                                                    <td class="table__content__td" style="color:green;">@sj.Score.Evalution</td>
+                                                }
+                                                @if (@sj.Score.Evalution == "2")
+                                                {
+                                                    <td class="table__content__td" style="color:red;">@sj.Score.Evalution</td>
+                                                }
+                                                @if (@sj.Score.Evalution != "2" && @sj.Score.Evalution != "5")
+                                                {
+                                                    <td class="table__content__td">@sj.Score.Evalution</td>
+                                                }
+                                            }
+                                            @if (@sj.Score.Evalution == null)
+                                            {
+                                                <td class="table__content__td"> </td>
+                                            }
+
+                                        }
+
+                                    }
+                                }
+                            }
+                        </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+}
+
+@if (Model.lessonModelLabs || Model.lessonModelPractics || Model.lessonModelLection)
+{
+    <div class="wrapper" id="tab-pos">
+        <h3 class="title title__main">Посещение</h3>
+        <div class="table">
+            <div class="for-scrol">
+                <table class="table__content table-scroll">
+                    <thead class="table__content__thead">
+                        <tr class="table__content__row">
+                            <td rowspan="3" class="table__content__td">#</td>
+                            <td rowspan="3" class="table__content__td">ФИО</td>
+                            <td colspan="10000" class="table__content__td">Посещение</td>
+                        </tr>
+                        <tr class="table__content__row">
+                            @{ int countNameLection = 0; }
+                            @foreach (var item in Model.ListLection)
+                            {
+                                countNameLection++;
+                                <td class="table__content__td">Лек.@countNameLection</td>
+                            }
+                            @{ int countNamePractics = 0; }
+                            @foreach (var item in Model.ListPractics)
+                            {
+                                countNamePractics++;
+                                <td class="table__content__td">Практика @countNamePractics</td>
+                            }
+                            @{ int countNameLabs = 0; }
+                            @foreach (var item in Model.ListLabs)
+                            {
+                                countNameLabs++;
+                                <td class="table__content__td">Л.р. @countNameLabs</td>
+                            }
+                        </tr>
+                        <tr class="table__content__row">
+                            @foreach (var item in Model.ListLection)
+                            {
+                                <td class="table__content__td date">@item.Lesson.Date.Day.@item.Lesson.Date.Month</td>
+                            }
+                            @foreach (var item in Model.ListPractics)
+                            {
+                                <td class="table__content__td date">@item.Lesson.Date.Day.@item.Lesson.Date.Month</td>
+                            }
+                            @foreach (var item in Model.ListLabs)
+                            {
+                                <td class="table__content__td date">@item.Lesson.Date.Day.@item.Lesson.Date.Month</td>
+                            }
+                        </tr>
+
+                    </thead>
+
+                    <tbody class="table__content__tbody">
+                        @{ int countRowsStudentInPos = 0;}
+                        @foreach (var i in Model.ListStudent)
+                        {
+                            countRowsStudentInPos++;
+                            <tr class="table__content__row">
+                                <td class="table__content__td">@countRowsStudentInPos</td>
+                                <td class="table__content__td">@i.Users.Fio</td>
+                                @foreach (var j in Model.ListLection)
+                                {
+                                    @foreach (var si in j.Score)
+                                    {
+                                        @foreach (var sj in j.Score)
+                                        {
+                                            @if (i.Users.Id == si.Score.IdStudent.Id && sj.Score.Id == si.Score.Id)
+                                            {
+                                                @if (@sj.Score.Attendance == true)
+                                                {
+                                                    <td class="table__content__td date" style="color:red;">Н</td>
+                                                }
+                                                @if (@sj.Score.Attendance == false)
+                                                {
+                                                    <td class="table__content__td"> </td>
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                                @foreach (var j in Model.ListPractics)
+                                {
+                                    @foreach (var si in j.Score)
+                                    {
+                                        @foreach (var sj in j.Score)
+                                        {
+                                            @if (i.Users.Id == si.Score.IdStudent.Id && sj.Score.Id == si.Score.Id)
+                                            {
+                                                @if (@sj.Score.Attendance == true)
+                                                {
+                                                    <td class="table__content__td date">Н</td>
+                                                }
+                                                @if (@sj.Score.Attendance == false)
+                                                {
+                                                    <td class="table__content__td"> </td>
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                                @foreach (var j in Model.ListLabs)
+                                {
+                                    @foreach (var si in j.Score)
+                                    {
+                                        @foreach (var sj in j.Score)
+                                        {
+                                            @if (i.Users.Id == si.Score.IdStudent.Id && sj.Score.Id == si.Score.Id)
+                                            {
+                                                @if (@sj.Score.Attendance == true)
+                                                {
+                                                    <td class="table__content__td date">Н</td>
+                                                }
+                                                @if (@sj.Score.Attendance == false)
+                                                {
+                                                    <td class="table__content__td"> </td>
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+                                }
+
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+}

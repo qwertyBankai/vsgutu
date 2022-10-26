@@ -1,0 +1,55 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Удалить пользователя";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+
+
+<div id="">
+    @if ((bool)TempData["Emp"] == false)
+    {
+        <div class="form">
+            <form asp-controller="Admin" asp-action="DeleteUsers">
+                <div class="form__group">
+                    <input class="form__input" name="userList" placeholder=" " type="text">
+                    <label class="form__label" for="">Поиск</label>
+                    <button class="form__btn"><i class="fa fa-search font-size-icon"></i></button>
+                </div>
+            </form>
+        </div><div class="table table_group">
+            <table class="table__content table_group">
+                <thead class="table__content__thead">
+                    <tr class="table__content__row">
+                        <td class="table__content__td">#</td>
+                        <td class="table__content__td">ФИО</td>
+                        <td class="table__content__td">Должность</td>
+                        <td class="table__content__td">Удалить</td>
+                    </tr>
+                </thead>
+                <tbody class="table__content__tbody">
+                    @foreach (var item in Model.listUsers)
+                    {
+
+                        <tr class="table__content__row">
+                            <td class="table__content__td">1</td>
+                            <td class="table__content__td">@item.Users.Fio</td>
+                            <td class="table__content__td">@item.Users.IdRole.Role</td>
+                            <td class="table__content__td"><a asp-action="DeleteUsersMethod" asp-controller="Admin" asp-route-IdUser="@item.Users.Id"><i class="fa fa-times disable"></i></a></td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h1 class="title title__main">Не найдено</h1>
+    }
+</div>
+

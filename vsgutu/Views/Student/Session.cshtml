@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Сессия 1";
+
+}
+@using PresentationLayer.Models
+@model dynamic
+
+
+<h2 class="title title__main">!!!!!!Оценки за 1 сессию 29.01.22 - 30.10.23</h2>
+
+<div class="stat">
+    <div class="form-create-journal">
+
+
+        <table class="table__content">
+            <thead class="table__content__thead">
+                <tr class="table__content__row">
+                    <td rowspan="1" class="table__content__td">#</td>
+                    <td rowspan="1" class="table__content__td">ФИО</td>
+                    <td rowspan="1" class="table__content__td">Оценка</td>
+                </tr>
+            </thead>
+            <tbody class="table__content__tbody">
+                @{ int i = 0;}
+                @foreach (var item in Model.ListSessionScoreByDate)
+                {
+                    i++;
+                <tr class="table__content__row">
+                    <td class="table__content__td">@i</td>
+                    <td class="table__content__td">@item.Users.Users.Fio</td>
+                    @if (item.SessionScore.ScoreSession == 0)
+                    {
+                        <td class="table__content__td"></td>
+                    }
+                    else
+                    {
+                        @if (@item.SessionScore.ScoreSession == 5)
+                        {
+                            <td class="table__content__td" style="color:green">@item.SessionScore.ScoreSession</td>
+                        }
+                        @if (@item.SessionScore.ScoreSession == 2)
+                        {
+                            <td class="table__content__td" style="color:red">@item.SessionScore.ScoreSession</td>
+                        }
+                        @if (@item.SessionScore.ScoreSession != 5 && @item.SessionScore.ScoreSession != 2)
+                        {
+                            <td class="table__content__td">@item.SessionScore.ScoreSession</td>
+                        }
+                    }
+
+                </tr>
+
+                }
+
+            </tbody>
+        </table>
+       
+    </div>
+</div>

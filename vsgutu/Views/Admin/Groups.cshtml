@@ -1,0 +1,81 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Группы";
+
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+
+<h2 class="title title__main">Группы</h2>
+
+@if ((bool)TempData["CheckGroup"] == true)
+{
+    <h2 class="title title__main">Данная группа уже существует</h2>
+}
+
+<div class="list-tabs">
+    <ul class="list-tabs__list">
+        <li class="list-tabs__list__item"><p id="delete-group" class="button-blue">Удаление группы</p></li>
+        <li class="list-tabs__list__item"><p id="creates-group" class="button-blue">Создание группы</p></li>
+    </ul>
+</div>
+
+<div id="delete">
+    <div class="form">
+        <form>
+            <div class="form__group">
+                <input class="form__input" name="groupList" placeholder=" " type="text">
+                <label class="form__label" for="">Поиск</label>
+                <button class="form__btn"><i class="fa fa-search font-size-icon"></i></button>
+            </div>
+        </form>
+    </div>
+    @if ((bool)TempData["Emp"] == false)
+    {
+        <div class="table table_group">
+            <table class="table__content table_group">
+                <thead class="table__content__thead">
+                    <tr class="table__content__row">
+                        <td class="table__content__td">#</td>
+                        <td class="table__content__td">Группа</td>
+                        <td class="table__content__td">Удалить</td>
+                    </tr>
+                </thead>
+                <tbody class="table__content__tbody">
+                    @{ int countGroups = 0;}
+                    @foreach (var item in Model.listGroup)
+                    {
+                        countGroups++;
+                        <tr class="table__content__row">
+                            <td class="table__content__td">@countGroups</td>
+                            <td class="table__content__td"><a href="#" class="table__content__link">@item.Groups.Name</a></td>
+                            <td class="table__content__td"><a asp-controller="Admin" asp-action="DeleteGroup" asp-route-idGroup="@item.Groups.Id" class="btn-noborder"><i class="fa fa-times disable"></i></a></td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h1 class="title title__main">Не найдено</h1>
+    }
+</div>
+
+<div id="create">
+    <div class="form__groupsForCreateGroups search-center">
+        <form method="post" asp-controller="Admin" asp-action="CreateGroup">
+            <div class="form__group">
+                <input class="form__input" name="Name" placeholder=" " type="text">
+                <label class="form__label" for="">Имя группы</label>
+                <button class="form__btn"><i class="fa fa-check font-size-icon"></i></button>
+            </div>
+        </form>
+    </div>
+
+</div>

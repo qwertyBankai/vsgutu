@@ -1,0 +1,60 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+
+    ViewData["Title"] = "Студент";
+    TempData["UserName"] = Model.name.Users.Fio;
+
+}
+<h2 class="title title__main">!!!!!!Оценки за 1 сессию 29.01.22 - 30.10.23</h2>
+
+<div class="stat">
+    <div class="form-create-journal">
+
+        <table class="table__content">
+            <thead class="table__content__thead">
+                <tr class="table__content__row">
+                    <td rowspan="1" class="table__content__td">#</td>
+                    <td rowspan="1" class="table__content__td">ФИО</td>
+                    <td rowspan="1" class="table__content__td">Оценка</td>
+                </tr>
+            </thead>
+            <tbody class="table__content__tbody">
+                @{ int i = 0;}
+                @foreach (var item in Model.ListEkByDate)
+                {
+                    i++;
+                <tr class="table__content__row">
+                    <td class="table__content__td">@i</td>
+                    <td class="table__content__td">@item.Users.Users.Fio</td>
+                    @if (item.ek.EKScore == 0)
+                    {
+                        <td class="table__content__td"></td>
+                    }
+                    else
+                    {
+                        @if (@item.ek.EKScore == 5)
+                        {
+                            <td class="table__content__td" style="color:green">@item.ek.EKScore</td>
+                        }
+                        @if (@item.ek.EKScore == 2)
+                        {
+                            <td class="table__content__td" style="color:red">@item.ek.EKScore</td>
+                        }
+                        @if (@item.ek.EKScore != 5 && @item.ek.EKScore != 2)
+                        {
+                            <td class="table__content__td">@item.ek.EKScore</td>
+                        }
+
+                    }
+
+                </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>

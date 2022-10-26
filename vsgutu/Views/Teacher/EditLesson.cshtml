@@ -1,0 +1,96 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+
+    ViewData["Title"] = "Дисциплины";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+
+<h2 class="title title__main">Оценки за @Model.Lesson.Lesson.Date.Day.@Model.Lesson.Lesson.Date.Month @Model.Lesson.Lesson.IdTypeLesson.NameType</h2>
+
+<div class="list-tabs-for-editJournalTeacher">
+    <ul class="list-tabs__list">
+        <li class="list-tabs__list__item"><p id="atte-table" class="button-blue">Оценки</p></li>
+        <li class="list-tabs__list__item"><p id="pos-table" class="button-blue">Посещение</p></li>
+    </ul>
+</div>
+
+<div class="stat" id="atte">
+    <div class="form-create-journal">
+        <form method="post" asp-action="EditLessonEvalution" asp-controller="Teacher">
+
+            @{
+                int countEval = 0;
+            }
+            <input type="hidden" name="countScore" value="@Model.CountScore" />
+            <input type="hidden" name="LessonId" value="@Model.Lesson.Lesson.Id" />
+            @foreach (var item in Model.StudensList)
+            {
+                <div class="form__group">
+                    <div class="form-group">
+                        @foreach (var subItem in Model.Lesson.Score)
+                        {
+                            if (subItem.Users.Users.Id == item.Users.Id)
+                            {
+                                countEval++;
+                                if (@subItem.Score.Evalution != null)
+                                {
+                                    <input class="form-field" name="fieldId_@countEval" value="@subItem.Score.Id" type="hidden">
+                                    <input class="form-field" name="field_@countEval" value="@subItem.Score.Evalution" type="text">
+                                }
+                                else
+                                {
+                                    <input class="form-field" name="fieldId_@countEval" value="@subItem.Score.Id" type="hidden">
+                                    <input class="form-field" name="field_@countEval" value="" type="text">
+                                }
+                                <span>@item.Users.Fio</span>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+
+            <button class="button-blue noborder">Добавить</button>
+        </form>
+    </div>
+</div>
+<div class="stat" id="pos">
+    <div class="form-create-journal">
+        <form method="post" asp-action="EditLessonAttendance" asp-controller="Teacher">
+            @{
+                int countAtt = 0;
+            }
+            <input type="hidden" name="countScore" value="@Model.CountScore" />
+            <input type="hidden" name="LessonId" value="@Model.Lesson.Lesson.Id" />
+            @foreach (var item in Model.StudensList)
+            {
+                <div class="form__group">
+                    <div class="form-group">
+                        @foreach (var subItem in Model.Lesson.Score)
+                        {
+                            if (subItem.Users.Users.Id == item.Users.Id)
+                            {
+                                countAtt++;
+                                if (@subItem.Score.Attendance == true)
+                                {
+                                    <input class="form-field" name="fieldId_@countAtt" value="@subItem.Score.Id" type="hidden">
+                                    <input class="form-field" name="fieldAtt_@countAtt" value="Н" type="text">
+                                }
+                                else
+                                {
+
+                                    <input class="form-field" name="fieldId_@countAtt" value="@subItem.Score.Id" type="hidden">
+                                    <input class="form-field" name="fieldAtt_@countAtt" value="" type="text">
+                                }
+                                <span>@item.Users.Fio</span>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            <button class="button-blue noborder">Добавить</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@using PresentationLayer.Models
+@*@model List<GroupsModel>*@
+@*@model GroupsModel*@
+@{
+    ViewData["Title"] = "Home Page";
+}
+@*ДОБАВЛЕНИЕ ГРУПП*@
+@*<form action="/Home/Index" method="post">
+    <input type="hidden" name="Groups.Id"  />
+    <input name="Groups.Name" />
+    <input type="submit"/>
+</form>*@
+@*ВЫВОД ГРУПП*@
+@*<div class="text-center">
+    <h1>Вывод групп</h1>
+@foreach(var item in Model)
+            {
+                @item.Groups.Name
+            }
+<h1>Конец вывод групп</h1>
+
+</div>*@
+
+@*УДАЛЕНИЕ ГРУПП*@
+@*<form action="/Home/Index" method="post">
+    <input type="hidden" name="Groups.Id" />
+    <input name="Groups.Name" />
+    <input type="submit" />
+</form>*@
+
+@*Вывод ролей*@
+
+
+@model List<RolesOfUsersModel>
+<div>
+    @foreach(var item in Model)
+    {
+        @item.Role.Role
+    }
+</div>

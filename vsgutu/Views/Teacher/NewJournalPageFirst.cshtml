@@ -1,0 +1,135 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+
+    ViewData["Title"] = "Дисциплины";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+
+@if ((bool)TempData["popupMessage_emptyFields"] == true)
+{
+    <div id="demo-modal" class="modal">
+        <div class="modal__content">
+            <h1>Заполните все поля</h1>
+            <a asp-action="NewJournalPageFirst" asp-controller="Teacher" asp-route-vlmsg="false" class="modal__close">&times;</a>
+        </div>
+    </div>
+}
+@if ((bool)TempData["popupMessage_isInt"] == true)
+{
+    <div id="demo-modal" class="modal">
+        <div class="modal__content">
+            <h1>Заполните числовые поля правильно</h1>
+            <a asp-action="NewJournalPageFirst" asp-controller="Teacher" asp-route-vlmsg="false" class="modal__close">&times;</a>
+        </div>
+    </div>
+}
+
+@if ((bool)TempData["popupMessageHours"] == true)
+{
+    <div id="demo-modal" class="modal">
+        <div class="modal__content">
+            <h1>Не правильно заполнены кол-во пар</h1>
+            <a asp-action="NewJournalPageFirst" asp-controller="Teacher" asp-route-vlmsg="false" class="modal__close">&times;</a>
+        </div>
+    </div>
+}
+
+@if ((bool)TempData["popupMessage_checkGroup"] == true)
+{
+    <div id="demo-modal" class="modal">
+        <div class="modal__content">
+            <h1>Данной группы не существует</h1>
+            <a asp-action="NewJournalPageFirst" asp-controller="Teacher" asp-route-vlmsg="false" class="modal__close">&times;</a>
+        </div>
+    </div>
+}
+
+
+<h2 class="title title__main">Создание журнала</h2>
+<div class="stat-forCreate">
+    <div class="form-First-create-journal">
+        <form method="post" asp-controller="Teacher" asp-action="NewJournalPageFirst">
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="NameDiscipline" class="form-field" type="text">
+                    <span>Наименование дисциплины</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="countSession" class="form-field" type="text">
+                    <span>Кол-во сессий</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="yearsStart" class="form-field" type="date">
+                    <span>Начало учебного года</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="yearsEnd" class="form-field" type="date">
+                    <span>Конец учебного года</span>
+                </div>
+            </div>
+
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="allCountHours" class="form-field" type="text">
+                    <span>Общее кол-во пар</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="LectionCountHours" class="form-field" type="text">
+                    <span>Кол-во пар для Лекции</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="PracticsCountHours" class="form-field" type="text">
+                    <span>Кол-во пар для Практик</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="LabCountHours" class="form-field" type="text">
+                    <span>Кол-во пар для Л.Р.</span>
+                </div>
+            </div>
+
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="GroupsName" class="form-field" type="text">
+                    <span>Группа студентов</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="formAttestation" class="form-field" type="text">
+                    <span>Форма аттестации</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="form-group">
+                    <input name="block" class="form-field" type="text">
+                    <span>Блок</span>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="checkbox-curswork">
+                    <div class="form-group">
+                        <input name="availabilityOfCoursework" value="true" type="checkbox" class="curswork" id="cb3">
+                        <label class="label-curwork" for="cb3">наличие курсовой работы</label>
+                    </div>
+                </div>
+            </div>
+            <button class="button-blue noborder btn-center ">Добавить</button>
+        </form>
+    </div>
+</div>
+

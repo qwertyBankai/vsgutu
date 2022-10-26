@@ -1,0 +1,58 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Создание студентов";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+<h2 class="title title__main">Создание Cтудентов</h2>
+
+<div id="create-student">
+    <div class="form">
+        <form method="get" asp-controller="Admin" asp-action="CreateStudentrUser">
+            <div class="form__group">
+                <input name="groupList" class="form__input" placeholder=" " type="text">
+                <label class="form__label" for="">Поиск</label>
+                <button class="form__btn"><i class="fa fa-search font-size-icon"></i></button>
+            </div>
+        </form>
+    </div>
+
+    @if ((bool)TempData["Emp"] == false)
+    {
+
+
+        <div class="table table_group">
+            <table class="table__content table_group">
+                <thead class="table__content__thead">
+                    <tr class="table__content__row">
+                        <td class="table__content__td">#</td>
+                        <td class="table__content__td">Группа</td>
+                    </tr>
+                </thead>
+                <tbody class="table__content__tbody">
+                    @{ int countRow = 0;}
+                    @foreach (var item in Model.listGroup)
+                    {
+                        countRow++;
+                        <tr class="table__content__row">
+                            <td class="table__content__td">@countRow</td>
+                            <td class="table__content__td"><a asp-controller="Admin" asp-action="CreateStudentrUsers" asp-route-nameGroup="@item.Groups.Name" class="table__content__link">@item.Groups.Name</a></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h1 class="title title__main">Не найдено</h1>
+    }
+
+
+
+
+</div>

@@ -1,0 +1,72 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+
+    ViewData["Title"] = "Дисциплины";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+<h2 class="title title__main">Все журналы</h2>
+<div class="form">
+    <form asp-controller="Teacher" asp-action="EkJournals" method="get">
+        <div class="form__group">
+            <input class="form__input" name="disciplineList" placeholder=" " type="text">
+            <label class="form__label" for="">Поиск</label>
+            <button class="form__btn"><i class="fa fa-search font-size-icon"></i></button>
+        </div>
+    </form>
+</div>
+<div class="table">
+    @if ((bool)TempData["Emp"] == false)
+    {
+        <table class="table__content">
+            <thead class="table__content__thead">
+                <tr class="table__content__row">
+                    <td class="table__content__td">#</td>
+                    <td class="table__content__td">Учебный год</td>
+                    <td class="table__content__td">Блок</td>
+                    <td class="table__content__td">Дисциплина</td>
+                    <td class="table__content__td">№ Группы</td>
+                    <td class="table__content__td">Трудоемкость</td>
+                    <td class="table__content__td">Форма аттестации</td>
+                    <td class="table__content__td">Наличие курсовой</td>
+                </tr>
+            </thead>
+            <tbody class="table__content__tbody">
+                @{
+                    int i = 0;
+
+                }
+                @foreach (var item in Model.listDiscipline)
+                {
+                    i++;
+                    <tr class="table__content__row">
+                        <td class="table__content__td"> @i </td>
+                        <td class="table__content__td"> @item.Discipline.yearsStart.Year - @item.Discipline.yearsEnd.Year </td>
+                        <td class="table__content__td"> @item.Discipline.block</td>
+                        <td class="table__content__td"> <a asp-action="Eks" asp-controller="Teacher" asp-route-idDiscipline="@item.Discipline.Id" class="table__content__link">@item.Discipline.Name</a></td>
+                        <td class="table__content__td"> <a href="#" class="table__content__link">@item.Discipline.IdGroup.Name</a></td>
+                        @{ double hours = item.Discipline.zet / 36;}
+                        <td class="table__content__td">@hours ЗЕТ(@item.Discipline.zet ч.)</td>
+                        <td class="table__content__td"> @item.Discipline.formAttestation</td>
+                        <td class="table__content__td">
+                            @if (item.Discipline.availabilityOfCoursework == true)
+                            {
+                                <i class="fa fa-check active"></i>
+                            }
+                            else
+                            { <i class="fa fa-times disable"></i>}
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h1 class="title title__main">Не найденно</h1>
+    }
+</div>

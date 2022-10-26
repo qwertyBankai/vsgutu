@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/main.css">
+    <!-- Fonts Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <header class="header">
+        <div class="menu header__menu">
+            <ul class="list list__menu__header">
+                <li class="list__menu__header__item"><a class="link" asp-controller="Teacher" asp-action="Index">Главная</a></li>
+                <li class="list__menu__header__item"><a class="link" asp-controller="Teacher" asp-action="NewJournalPageFirst">Новый журнал</a></li>
+                <li class="list__menu__header__item"><a class="link" asp-controller="Teacher" asp-action="DeleteDiscipline">Удалить журнал</a></li>
+                <li class="list__menu__header__item"><a class="link" asp-controller="Teacher" asp-action="DisciplineJournals">Сессии</a></li>
+                <li class="list__menu__header__item"><a class="link" asp-controller="Teacher" asp-action="EkJournals">ЕК</a></li>
+            </ul>
+        </div>
+        <div class="menu header__menu">
+            <ul class="list list__menu__header">
+                <li class="list__menu__header__item"><a class="link" href="#">@TempData["UserName"]</a></li>
+                <form asp-action="Logoff" asp-controller="Login">
+                    <button class="button-menu list__menu__header__item link"><i class="fas fa-sign-out-alt font-size-icon"></i> Выход</button>
+                </form>
+            </ul>
+        </div>
+    </header>
+    <section class="main">
+        @RenderBody()
+    </section>
+    <div style="margin-top:200px;">
+        <input type="hidden" name="name" value="" />
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>

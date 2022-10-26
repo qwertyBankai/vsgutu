@@ -1,0 +1,31 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Создание студентов";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+
+<h2 class="title title__main">Создание Студентов группы: @Model.nameGroups.Groups.Name</h2>
+
+<div id="">
+    <div class="forms-forCreateUsers search-center">
+        <form method="post" asp-controller="Admin" asp-action="CreateStudentrUsers" enctype="multipart/form-data">
+            <div class="form__group__file">
+                <div class="form__group__from-center">
+                    <input type="hidden" name="nameGroup" value="@Model.nameGroups.Groups.Name" />
+                    <div class="input__wrapper">
+                        <input type="hidden" name="role" value="Student" />
+                        <input type="file" name="uploadStudent" id="input__file" class="input input__file">
+                        <label for="input__file" class="input__file-button">
+                            <button class="input__file-icon-wrapper btn-noborder-for-file"><img class="input__file-icon" src="~/img/add.svg" alt="Выбрать файл" width="25"></button>
+                            <span class="input__file-button-text">Выберите файл</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

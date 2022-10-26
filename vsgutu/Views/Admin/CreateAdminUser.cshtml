@@ -1,0 +1,32 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Создание администратора";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+    
+
+    <h2 class="title title__main">Создание Администратора</h2>
+    <div id="">
+        <div class="forms-forCreateUsers search-center">
+            <form method="post" asp-controller="Admin" asp-action="CreateAdminUser" enctype="multipart/form-data">
+                <div class="form__group">
+                    <div class="form__group__from-center">
+                        <div class="input__wrapper">
+                            <input type="hidden" name="role" value="Admin" />
+                            <input type="file" name="uploadAdmin" id="input__file" class="input input__file">
+                            <label for="input__file" class="input__file-button">
+                                <button class="input__file-icon-wrapper btn-noborder-for-file"><img class="input__file-icon" src="~/img/add.svg" alt="Выбрать файл" width="25"></button>
+                                <span class="input__file-button-text">Выберите файл</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+

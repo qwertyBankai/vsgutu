@@ -1,0 +1,22 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Сессии по БД";
+
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+<h2 class="title title__main">Выберете сессию</h2>
+<div class="list-tabs">
+    <ul class="list-tabs__list">
+        @{ int i = 0;}
+        @foreach (var item in Model.listsessionScore)
+        {
+            i++;
+            <li class="list-tabs__list__item"><a asp-controller="Admin" asp-action="Session" asp-route-idDiscipline="@item.Id" asp-route-date="@item.Date" class="button-blue">@i сессия</a></li>
+        }
+
+    </ul>
+</div>

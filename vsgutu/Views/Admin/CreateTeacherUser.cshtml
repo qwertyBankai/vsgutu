@@ -1,0 +1,28 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Создание преподователя";
+
+}
+
+<h2 class="title title__main">Создание Преподователя</h2>
+
+<div id="">
+    <div class="forms-forCreateUsers search-center">
+        <form method="post" asp-controller="Admin" asp-action="CreateTeacherUser" enctype="multipart/form-data">
+            <div class="form__group__file">
+                <div class="form__group__from-center">
+                    <div class="input__wrapper">
+                        <input type="hidden" name="role" value="Teacher" />
+                        <input type="file" name="uploadTeacher" id="input__file" class="input input__file">
+                        <label for="input__file" class="input__file-button">
+                            <button class="input__file-icon-wrapper btn-noborder-for-file"><img class="input__file-icon" src="~/img/add.svg" alt="Выбрать файл" width="25"></button>
+                            <span class="input__file-button-text">Выберите файл</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

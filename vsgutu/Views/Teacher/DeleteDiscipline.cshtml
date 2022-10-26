@@ -1,0 +1,49 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+
+    ViewData["Title"] = "Удаление дисциплин";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+
+
+
+<div id="delete">
+    <div class="form">
+        <form>
+            <div class="form__group">
+                <input class="form__input" name="disciplineList" placeholder=" " type="text">
+                <label class="form__label" for="">Поиск</label>
+                <button class="form__btn"><i class="fa fa-search font-size-icon"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="table table_group">
+        <table class="table__content table_group">
+            <thead class="table__content__thead">
+                <tr class="table__content__row">
+                    <td class="table__content__td">#</td>
+                    <td class="table__content__td">Дисциплина</td>
+                    <td class="table__content__td">Удалить</td>
+                </tr>
+            </thead>
+            <tbody class="table__content__tbody">
+                @{ int countGroups = 0;}
+                @foreach (var item in Model.listDiscipline)
+                {
+                    countGroups++;
+                    <tr class="table__content__row">
+                        <td class="table__content__td">@countGroups</td>
+                        <td class="table__content__td"><a href="#" class="table__content__link">@item.Discipline.Name</a></td>
+                        <td class="table__content__td"><a asp-controller="Teacher" asp-action="DeleteDisciplines" asp-route-idGroup="@item.Groups.Groups.Id" class="btn-noborder"><i class="fa fa-times disable"></i></a></td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</div>

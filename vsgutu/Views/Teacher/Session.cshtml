@@ -1,0 +1,51 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+
+    ViewData["Title"] = "Дисциплины";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+
+
+<h2 class="title title__main">!!!!!!Оценки за 1 сессию 29.01.22 - 30.10.23</h2>
+
+@if ((bool)TempData["isInt"] == true)
+{
+    <h2 class="title title__main">Значение в полях может быть только числовым</h2>
+}
+@if ((bool)TempData["evalutionCheck"] == true)
+{
+    <h2 class="title title__main">Оценки могут быть от 2 до 5</h2>
+}
+
+<div class="stat">
+    <div class="form-create-journal">
+        <form method="post" asp-action="Session" asp-controller="Teacher">
+            <input type="hidden" name="countScores" value="@Model.CountScores" />
+            <input type="hidden" name="idDiscipline" value="@Model.Discipline.Discipline.Id" />
+            <input type="hidden" name="date" value="@Model.Date" />
+            @{ int i = 0;}
+            @foreach (var item in Model.ListSessionScoreByDate)
+            {
+                i++;
+                <div class="form__group">
+                    <div class="form-group">
+                        <input type="hidden" name="idSessionScore_@i" value="@item.SessionScore.Id" />
+                        @if (item.SessionScore.ScoreSession == 0)
+                        {
+                            <input class="form-field" name="sessionScore_@i" type="text">
+                        }
+                        else
+                        {
+                            <input class="form-field" name="sessionScore_@i" value="@item.SessionScore.ScoreSession" type="text">
+                        }
+                        <span>@item.Users.Users.Fio</span>
+                    </div>
+                </div>
+            }
+            <button class="button-blue noborder">Добавить</button>
+        </form>
+    </div>
+</div>

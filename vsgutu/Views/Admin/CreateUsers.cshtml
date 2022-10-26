@@ -1,0 +1,29 @@
+﻿@model dynamic
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    ViewData["Title"] = "Добавление пользователей";
+    TempData["UserName"] = Model.name.Users.Fio;
+}
+
+
+
+
+
+
+<h2 class="title title__main">Создание пользователя</h2>
+
+<div class="list-tabs">
+    <ul class="list-tabs__list">
+        <li class="list-tabs__list__item"><a asp-controller="Admin" asp-action="CreateStudentrUser" id="student" class="button-blue">создать студента</a></li>
+        <li class="list-tabs__list__item"><a asp-controller="Admin" asp-action="CreateAdminUser" id="admin" class="button-blue">создать администратора</a></li>
+        <li class="list-tabs__list__item"><a asp-controller="Admin" asp-action="CreateTeacherUser" id="teacher" class="button-blue">создать преподователя</a></li>
+    </ul>
+</div>
+
+
+
+
+
+
+
