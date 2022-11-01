@@ -332,10 +332,10 @@ namespace PresentationLayer.Services
 
             foreach (var i in _listLection)
             {
-                j++;
                 foreach(var item in i.Score)
                 {
-                    if(item.Score.Evalution == null || item.Score.Evalution == "")
+                    j++;
+                    if (item.Score.Evalution == null || item.Score.Evalution == "")
                     {
                         statistic = statistic + 0;
                     }
@@ -361,9 +361,10 @@ namespace PresentationLayer.Services
 
             foreach (var i in _listLection)
             {
-                j++;
+             
                 foreach (var item in i.Score)
                 {
+                    j++;
                     if (item.Score.Evalution == null)
                     {
                         statistic = statistic + 0;
@@ -387,9 +388,10 @@ namespace PresentationLayer.Services
 
             foreach (var i in _listPractics)
             {
-                j++;
+             
                 foreach (var item in i.Score)
                 {
+                    j++;
                     if (item.Score.Evalution == null || item.Score.Evalution == "")
                     {
                         statistic = statistic + 0;
@@ -418,9 +420,10 @@ namespace PresentationLayer.Services
 
             foreach (var i in _listPractics)
             {
-                j++;
+            
                 foreach (var item in i.Score)
                 {
+                    j++;
                     if (item.Score.Evalution == null)
                     {
                         statistic = statistic + 0;
@@ -444,9 +447,10 @@ namespace PresentationLayer.Services
 
             foreach (var i in _listLab)
             {
-                j++;
+                
                 foreach (var item in i.Score)
                 {
+                    j++;
                     if (item.Score.Evalution == null || item.Score.Evalution == "")
                     {
                         statistic = statistic + 0;
@@ -475,9 +479,10 @@ namespace PresentationLayer.Services
 
             foreach (var i in _listLab)
             {
-                j++;
+                
                 foreach (var item in i.Score)
                 {
+                    j++;
                     if (item.Score.Evalution == null)
                     {
                         statistic = statistic + 0;
@@ -567,17 +572,32 @@ namespace PresentationLayer.Services
             return statistic;
         }
 
-
         public void DeleteLessonsByGroup(int idGroup)
         {
             var _temp = _dataManager.Lessons.GetAllLessonsNotAsNoTracking(true);
-            foreach(var item in _temp)
+            foreach (var item in _temp)
             {
                 if (item.IdDiscipline == null)
                 {
                     continue;
                 }
-                if(item.IdDiscipline.Id == idGroup)
+                if (item.IdDiscipline.IdGroup.Id == idGroup)
+                {
+                    _dataManager.Lessons.DeleteLesson(item);
+                }
+            }
+        }
+
+        public void DeleteLessonsByIdDiscipline(int idDicipline)
+        {
+            var _temp = _dataManager.Lessons.GetAllLessonsNotAsNoTracking(true);
+            foreach (var item in _temp)
+            {
+                if (item.IdDiscipline == null)
+                {
+                    continue;
+                }
+                if (item.IdDiscipline.Id == idDicipline)
                 {
                     _dataManager.Lessons.DeleteLesson(item);
                 }

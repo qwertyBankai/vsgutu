@@ -2,13 +2,13 @@
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
-    ViewData["Title"] = "ЕК за  1";
+    ViewData["Title"] = "ЕК " + Model.dateEk.Day +"." + Model.dateEk.Month;
     TempData["UserName"] = Model.name.Users.Fio;
 }
 
 
 
-<h2 class="title title__main">!!!!!!Оценки за 1 сессию 29.01.22 - 30.10.23</h2>
+<h2 class="title title__main">ЕК @Model.dateEk.Day.@Model.dateEk.Month</h2>
 
 <div class="stat">
     <div class="form-create-journal">

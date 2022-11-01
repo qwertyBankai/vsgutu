@@ -2,13 +2,13 @@
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
-    ViewData["Title"] = "Сессии по БД";
+    ViewData["Title"] = "Сессии";
 
     TempData["UserName"] = Model.name.Users.Fio;
 }
 
 
-<h2 class="title title__main">Выберете сессию</h2>
+<h2 class="title title__main">Сессии</h2>
 <div class="list-tabs">
     <ul class="list-tabs__list">
         @{ int i = 0;}

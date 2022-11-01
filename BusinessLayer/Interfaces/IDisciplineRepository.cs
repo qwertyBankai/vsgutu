@@ -9,14 +9,15 @@ namespace BusinessLayer.Interfaces
 {
     public interface IDisciplineRepository
     {
-        void CreateDiscipline(Discipline discipline);
-        void DeleteDiscipline(Discipline discipline);
-        public void DeleteDisciplines(List<Discipline> discipline);
-        void Edit(Discipline discipline);
-        IEnumerable<Discipline> GetAllDiscipline(bool includes = false);
-        IEnumerable<Discipline> GetAllDisciplineByName(string name, bool includes = false);
-        Discipline GetDisciplineById(int id, bool includes = false);
-        Discipline GetDisciplineByName(string name, bool includes = false);
+        public void CreateDiscipline(Discipline discipline);
+        public void DeleteDiscipline(Discipline discipline);
+        public void DeleteDisciplines(IEnumerable<Discipline> discipline);
+        public  void Edit(Discipline discipline);
+        public IEnumerable<Discipline> GetAllDiscipline(bool includes = false);
+        public IEnumerable<Discipline> GetAllDisciplineById(int id, bool includes = false);
+        public  IEnumerable<Discipline> GetAllDisciplineByName(string name, bool includes = false);
+        public  Discipline GetDisciplineById(int id, bool includes = false);
+        public Discipline GetDisciplineByName(string name, bool includes = false);
         public List<Discipline> GetDisciplineByGroup(int idGroup);
         /*public List<Discipline> GetDisciplineForStudent(int idStudent);
         public List<Discipline> GetDisciplineForTeacher(int idStudent);*/

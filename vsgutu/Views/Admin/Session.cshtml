@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
-    ViewData["Title"] = "Сессия 1";
+    ViewData["Title"] = "Сессия " + Model.dateSession.Day + "." + Model.dateSession.Month;
 
     TempData["UserName"] = Model.name.Users.Fio;
 }
@@ -10,7 +10,7 @@
 
 
 
-<h2 class="title title__main">!!!!!!Оценки за 1 сессию 29.01.22 - 30.10.23</h2>
+<h2 class="title title__main">Сессия @Model.dateSession.Day.@Model.dateSession.Month</h2>
 
 <div class="stat">
     <div class="form-create-journal">

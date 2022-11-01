@@ -30,7 +30,7 @@ namespace BusinessLayer.Implementations
             context.SaveChanges();
         }
 
-        public void DeleteDisciplines(List<Discipline> discipline)
+        public void DeleteDisciplines(IEnumerable<Discipline> discipline)
         {
             foreach (var item in discipline)
             {
@@ -115,5 +115,17 @@ namespace BusinessLayer.Implementations
         {
 
         }*/
+
+        public IEnumerable<Discipline> GetAllDisciplineById(int id, bool includes = false)
+        {
+            if (includes)
+            {
+                return context.Set<Discipline>().Where(x => x.Id == id).Include(x => x.IdGroup).Include(x => x.IdTeacher).ToList();
+            }
+            else
+            {
+                return context.Discipline.Where(x => x.Id == id).ToList();
+            }
+        }
     }
 }

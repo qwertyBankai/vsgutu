@@ -114,6 +114,11 @@ namespace PresentationLayer.Services
             List<Discipline> _tempDiscipline = _dataManager.Disciplines.GetDisciplineByGroup(idGroup);
             _dataManager.Disciplines.DeleteDisciplines(_tempDiscipline);
         }
+        public void DeleteDisciplineById(int idDiscipline)
+        {
+            IEnumerable<Discipline> _tempDiscipline = _dataManager.Disciplines.GetAllDisciplineById(idDiscipline, true);
+            _dataManager.Disciplines.DeleteDisciplines(_tempDiscipline);
+        }
 
         public void CreateDiscipline(string Name, DateTime yearsStart, DateTime yearsEnd, string GroupsName,
             string formAttestation, bool availabilityOfCoursework, int zet, int block, int idTeacher)

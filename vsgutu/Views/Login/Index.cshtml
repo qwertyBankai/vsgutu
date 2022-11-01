@@ -6,12 +6,12 @@
 @if ((bool)TempData["notFoundUser"] == true)
 {
     <div class="text-center" style="width:30%; margin:auto; margin-top:50px;">
-        <h1 class="h3 mb-5 font-weight-normal">неправильный логин или пароль</h1>
+        <h1 class="h3 mb-5 font-weight-normal">Неправильный логин или пароль</h1>
     </div>
 }
-
         <div class="text-center" style="width:30%; margin:auto; margin-top:150px;">
             <form method="post" asp-controller="Login" asp-action="Index" class="form-signin text-center">
+                <img class="mb-4" src="~/img/newlogo.png" alt="" width="82" height="82">
                 <h1 class="h3 mb-5 font-weight-normal">Авторизация</h1>
                 <input type="text" name="login" class="form-control mt-2" placeholder="Логин">
                 <input type="password" name="password" class="form-control mt-2" placeholder="Пароль">

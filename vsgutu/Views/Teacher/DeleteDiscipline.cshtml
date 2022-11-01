@@ -37,7 +37,7 @@
                     <tr class="table__content__row">
                         <td class="table__content__td">@countGroups</td>
                         <td class="table__content__td"><a href="#" class="table__content__link">@item.Discipline.Name</a></td>
-                        <td class="table__content__td"><a asp-controller="Teacher" asp-action="DeleteDisciplines" asp-route-idGroup="@item.Groups.Groups.Id" class="btn-noborder"><i class="fa fa-times disable"></i></a></td>
+                        <td class="table__content__td"><a asp-controller="Teacher" asp-action="DeleteDisciplines" asp-route-idDiscipline="@item.Discipline.Id" asp-route-idGroup="@item.Groups.Groups.Id" class="btn-noborder"><i class="fa fa-times disable"></i></a></td>
                     </tr>
 
                 }

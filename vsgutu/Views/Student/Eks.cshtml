@@ -2,12 +2,12 @@
 @{
     Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 
-    ViewData["Title"] = "Студент";
+    ViewData["Title"] = "ЕК";
     TempData["UserName"] = Model.name.Users.Fio;
 
 }
 
-<h2 class="title title__main">Выберете сессию</h2>
+<h2 class="title title__main">ЕК</h2>
 <div class="list-tabs">
     <ul class="list-tabs__list">
         @foreach (var item in Model.ListEK)

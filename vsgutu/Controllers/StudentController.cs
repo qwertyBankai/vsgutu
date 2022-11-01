@@ -139,6 +139,7 @@ namespace vsgutu.Controllers
         public IActionResult Session(string date, int idDiscipline)
         {
             dynamic model = new ExpandoObject();
+            model.dateSession = DateTime.Parse(date);
             model.name = _serviceManager.Users.GetUserById(globalIdUser.IdUser);
             model.ListSessionScoreByDate = _serviceManager.Session.GetAllSessionScoreByDisciplineByDateForStudent(idDiscipline, date, globalIdUser.IdUser);
             model.CountScores = _serviceManager.Session.GetAllSessionScoreByDate(date).Count();
@@ -185,6 +186,7 @@ namespace vsgutu.Controllers
         {
             DateTime newDate = DateTime.Parse(dateTime);
             dynamic model = new ExpandoObject();
+            model.dateEk = newDate;
             model.name = _serviceManager.Users.GetUserById(globalIdUser.IdUser);
             model.ListEkByDate = _serviceManager.EK.GetAllEKByDisciplineByDateForStudent(idDiscipline, newDate, globalIdUser.IdUser);
             model.CountEKs = _serviceManager.EK.GetAllEKByDisciplineByDate(idDiscipline, newDate).Count();

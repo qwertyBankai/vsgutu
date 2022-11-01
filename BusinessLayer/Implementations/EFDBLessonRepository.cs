@@ -62,7 +62,7 @@ namespace BusinessLayer.Implementations
         {
             if (includes)
             {
-                return context.Set<Lesson>().Include(x => x.IdDiscipline)
+                return context.Set<Lesson>().Include(x => x.IdDiscipline).Include(x=>x.IdDiscipline.IdGroup)
                     .Include(x => x.IdScore)
                     .Include(x => x.IdTypeLesson).ToList();
             }

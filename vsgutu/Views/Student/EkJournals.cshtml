@@ -2,12 +2,12 @@
 @{
     Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 
-    ViewData["Title"] = "Студент";
+    ViewData["Title"] = "ЕК";
     TempData["UserName"] = Model.name.Users.Fio;
 
 }
 
-<h2 class="title title__main">Все журналы</h2>
+<h2 class="title title__main">ЕК</h2>
 
 <div class="table">
     @if ((bool)TempData["Emp"] == false)

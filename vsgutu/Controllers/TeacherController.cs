@@ -624,7 +624,7 @@ namespace vsgutu.Controllers
             for (int i = 1; i <= countScores; ++i)
             {
                 dynamic model = new ExpandoObject();
-                model.name = _serviceManager.Users.GetUserByIdForStudent(globalIdUser.IdUser);
+                model.name = _serviceManager.Users.GetUserById(globalIdUser.IdUser);
                 int _check;
                 string fieldIdScore = formFields["idEK_" + i.ToString()];
                 string fieldEkScore;
@@ -706,7 +706,7 @@ namespace vsgutu.Controllers
                 return View(model);
             }
         }
-        public IActionResult DeleteDisciplines(int idGroup)
+        public IActionResult DeleteDisciplines(int idDiscipline,int idGroup)
         {
             dynamic model = new ExpandoObject();
             model.name = _serviceManager.Users.GetUserById(globalIdUser.IdUser);
@@ -716,10 +716,9 @@ namespace vsgutu.Controllers
                 _serviceManager.Scories.DeleteScoreByIdStudent(item.Users.Id);
                 _serviceManager.EK.DeleteEkScoreByIdStudent(item.Users.Id);
                 _serviceManager.Session.DeleteSessionScoreByIdStudent(item.Users.Id);
-               // _serviceManager.Users.DeleteUsersById(item.Users.Id);
             }
-            _serviceManager.Lessons.DeleteLessonsByGroup(idGroup);
-            _serviceManager.Disciplines.DeleteDisciplineByGroup(idGroup);
+            _serviceManager.Lessons.DeleteLessonsByIdDiscipline(idDiscipline);
+            _serviceManager.Disciplines.DeleteDisciplineById(idDiscipline);
 
             return RedirectToAction("DeleteDiscipline", "Teacher");
         }
