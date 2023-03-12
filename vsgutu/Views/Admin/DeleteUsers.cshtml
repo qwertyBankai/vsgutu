@@ -31,11 +31,12 @@
                     </tr>
                 </thead>
                 <tbody class="table__content__tbody">
+                    @{int num = 0;}
                     @foreach (var item in Model.listUsers)
                     {
-
+                        num++;
                         <tr class="table__content__row">
-                            <td class="table__content__td">1</td>
+                            <td class="table__content__td">@num</td>
                             <td class="table__content__td">@item.Users.Fio</td>
                             <td class="table__content__td">@item.Users.IdRole.Role</td>
                             <td class="table__content__td"><a asp-action="DeleteUsersMethod" asp-controller="Admin" asp-route-IdUser="@item.Users.Id"><i class="fa fa-times disable"></i></a></td>

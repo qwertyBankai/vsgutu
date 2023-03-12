@@ -1,4 +1,5 @@
-﻿@model dynamic
+﻿
+@model dynamic
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
@@ -6,7 +7,6 @@
 
     TempData["UserName"] = Model.name.Users.Fio;
 }
-
 
 
 
@@ -34,7 +34,6 @@
         @if (Model.lessonModelLection || Model.lessonModelPractics || Model.lessonModelLabs)
         {
             <li class="list-tabs__list__item"><p id="pos" class="button-blue">Посещаемость</p></li>
-            <li class="list-tabs__list__item"><p id="statistics" class="button-blue">Статистика</p></li>
         }
         else
         {
@@ -391,52 +390,9 @@
         </div>
 
     </div>
-    <div class="wrapper" id="tab-stat">
-        <h3 class="title title__main">Статистика</h3>
-        <div class="table">
 
-            <div class="form-mini">
-                <form class="statistic-form" asp-controller="Admin" asp-action="Journal">
-                    <input type="hidden" name="name" value="@Model.disciplineModel.Discipline.Name" />
-                    <div class="form__group ">
-                        <input class="form__input" name="start" placeholder=" " type="date">
-                        <label class="form__label" for="">Начало периода</label>
-                    </div>
-                    <div class="form__group ">
-
-                    </div>
-                    <div class="form__group">
-                        <input class="form__input" name="end" placeholder=" " type="date">
-                        <label class="form__label" for="">Конец периода</label>
-                        <button class="form__btn"><i class="fa fa-search font-size-icon"></i></button>
-                    </div>
-                </form>
-            </div>
-
-            <div>
-                <table class="table__content min-table">
-                    <thead class="table__content__thead">
-                        <tr class="table__content__row">
-                            <td class="table__content__td">Посещение </td>
-                            <td class="table__content__td">Ср.балл за Лекции</td>
-                            <td class="table__content__td">Ср.балл за Практики</td>
-                            <td class="table__content__td">Ср.балл за Л.Р.</td>
-                            <td class="table__content__td">Ср.балл за все оценки</td>
-
-                        </tr>
-                    </thead>
-                    <tbody class="table__content__tbody">
-                        <tr class="table__content__row">
-                            <td class="table__content__td">@Model.StatisticPos</td>
-                            <td class="table__content__td">@Model.StatisticLection</td>
-                            <td class="table__content__td">@Model.StatisticPractic</td>
-                            <td class="table__content__td">@Model.StatisticLab</td>
-                            <td class="table__content__td">@Model.StatisticAllTypeLesson</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
 }
+
+<div style="text-align:center;width:10%; margin-left:45%;">
+    <a class="button-blue" style="width: 45px;" asp-controller="Admin" asp-action="Report" asp-route-idGroup=" @Model.disciplineModel.Discipline.IdGroup.Id" asp-route-idDiscipline=" @Model.disciplineModel.Discipline.Id">Отчет</a>
+</div>

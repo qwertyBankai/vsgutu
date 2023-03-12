@@ -51,7 +51,7 @@ namespace BusinessLayer.Implementations
             context.SaveChanges();
         }
 
-        public IEnumerable<Score> GetAllScore() => context.Score.ToList();
+        public IEnumerable<Score> GetAllScore() => context.Score.Include(x=>x.IdStudent).Include(x=>x.IdLesson).ToList();
 
         public Score GetScore(int id, bool includes = false)
         {

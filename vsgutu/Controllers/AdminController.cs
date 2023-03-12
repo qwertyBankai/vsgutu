@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using ClosedXML.Excel;
 using DataLayer.Entities;
 using DataLayer.Helpers;
 using Microsoft.AspNetCore.Authorization;
@@ -93,12 +94,7 @@ namespace vsgutu.Controllers
             model.ListLabs = _serviceManager.Lessons.GetLessonModelByDisciplineLab(model.disciplineModel.Discipline.Id);
             //Список студентов
             model.ListStudent = _serviceManager.Users.GetStudentListByGroup(model.disciplineModel.Discipline.IdGroup.Id);
-            //Статистика
-            model.StatisticLection = _serviceManager.Lessons.GetStatisticsLessonByLection(model.disciplineModel.Discipline.Id);
-            model.StatisticPractic = _serviceManager.Lessons.GetStatisticsLessonByPractics(model.disciplineModel.Discipline.Id);
-            model.StatisticLab = _serviceManager.Lessons.GetStatisticsLessonByLabs(model.disciplineModel.Discipline.Id);
-            model.StatisticAllTypeLesson = _serviceManager.Lessons.GetStatisticsLessonsByAllTypeLesson(model.disciplineModel.Discipline.Id);
-            model.StatisticPos = _serviceManager.Lessons.GetStatisticByPos(model.disciplineModel.Discipline.IdGroup.Id, model.disciplineModel.Discipline.Id);
+           
 
             //Статистика по времени
             if (!(String.IsNullOrWhiteSpace(start)) && !(String.IsNullOrWhiteSpace(end)))
@@ -432,5 +428,45 @@ namespace vsgutu.Controllers
             return View(model);
         }
 
+        public IActionResult Report(int idGroup, int idDiscipline)
+        {
+            var group = _serviceManager.Users.GetStudentListByGroup(idGroup);
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                var workSheet = workbook.Worksheets.Add($"Группа {group.First().Group.Groups.Name}");
+                workSheet.Cell(1, 1).Value = "ФИО";
+                workSheet.Cell(1, 2).Value = "Средний балл";
+                workSheet.Cell(1, 3).Value = "Пропусков %";
+
+
+                workSheet.Cell(1, 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                workSheet.Cell(1, 1).Style.Font.Bold = true;
+                workSheet.Cell(1, 1).Style.Font.FontSize = 14;
+                workSheet.Cell(1, 2).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                workSheet.Cell(1, 2).Style.Font.Bold = true;
+                workSheet.Cell(1, 2).Style.Font.FontSize = 14;
+                workSheet.Cell(1, 3).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                workSheet.Cell(1, 3).Style.Font.Bold = true;
+                workSheet.Cell(1, 3).Style.Font.FontSize = 14;
+                int count = 2;
+                foreach (var item in group)
+                {
+                    workSheet.Cell(count, 1).Value = item.Users.Fio;
+                    workSheet.Cell(count, 2).Value = _serviceManager.Users.GetStatisticByStudent(item.Users.Id, idDiscipline);
+                    workSheet.Cell(count, 3).Value = _serviceManager.Users.GetStatisticByStudentAttendence(item.Users.Id, idDiscipline);
+                    count++;
+                }
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Flush();
+                    return new FileContentResult(stream.ToArray(),
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                    {
+                        FileDownloadName = $"report_admin.xlsx"
+                    };
+                }
+            }
+        }
     }
 }

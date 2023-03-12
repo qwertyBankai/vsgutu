@@ -238,5 +238,86 @@ namespace PresentationLayer.Services
             var _temp = _dataManager.Users.GetUserById(id, true);
             return UsersModelDBToViewById(_temp.Id);
         }
+
+        public double GetStatisticByStudent(int idStudent, int idDiscipline)
+        {
+            var user = _dataManager.Users.GetUserById(idStudent);
+            var discipline = _dataManager.Disciplines.GetDisciplineById(idDiscipline);
+
+            List<Score> scores = new List<Score>();
+
+            var allScore = _dataManager.Scories.GetAllScore();
+            int summ = 0;
+
+            foreach (var item in allScore)
+            {
+                if(item.IdStudent.Id == user.Id && item.IdLesson.IdDiscipline.Id == discipline.Id)
+                {
+                    scores.Add(item);
+                    if (item.Evalution is not null)
+                    {
+                        summ += int.Parse(item.Evalution);
+                    }
+                    else
+                    {
+                        summ += 0;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            int count = scores.Count();
+
+            double res = summ / count;
+            return res;
+        }
+
+        public double GetStatisticByStudentAttendence(int idStudent, int idDiscipline)
+        {
+            var user = _dataManager.Users.GetUserById(idStudent);
+            var discipline = _dataManager.Disciplines.GetDisciplineById(idDiscipline);
+
+            List<Lesson> lessons = new List<Lesson>();
+            var allLessons = _dataManager.Lessons.GetAllLessons(true);
+            var allScore = _dataManager.Scories.GetAllScore();
+            int summ = 0;
+
+
+            foreach(var item in allLessons)
+            {
+                if(item.IdDiscipline.Id == idDiscipline)
+                {
+                    lessons.Add(item);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+
+            foreach (var item in allScore)
+            {
+                if (item.IdStudent.Id == user.Id && item.IdLesson.IdDiscipline.Id == discipline.Id)
+                {
+                   if(item.Attendance == true)
+                    {
+                        summ++;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            int count = lessons.Count();
+
+            double res = (100 / count) * summ;
+            return res;
+        }
     }
 }

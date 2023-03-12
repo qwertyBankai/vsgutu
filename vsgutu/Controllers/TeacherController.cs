@@ -70,8 +70,7 @@ namespace vsgutu.Controllers
         }
 
 
-        public IActionResult NewJournalPageFirst(/*ool popupMessage_emptyFields = false, bool popupMessageHours = false,
-            bool popupMessage_isInt = false, bool popupMessage_checkGroup = false*/)
+        public IActionResult NewJournalPageFirst()
         {
             dynamic model = new ExpandoObject();
             model.name = _serviceManager.Users.GetUserById(globalIdUser.IdUser);
